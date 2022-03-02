@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'dart:math';
 import './components/transaction_form.dart';
 import './components/transaction_list.dart';
@@ -11,28 +9,31 @@ main() => runApp(ExpensesApp());
 class ExpensesApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = ThemeData();
+
     return MaterialApp(
       home: MyHomePage(),
-      theme: ThemeData(
-          primarySwatch: Colors.purple,
-          accentColor: Colors.amber,
-          fontFamily: 'Quicksand',
-          textTheme: ThemeData.light().textTheme.copyWith(
-                title: TextStyle(
-                  fontFamily: 'OpenSans',
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-          appBarTheme: AppBarTheme(
-            textTheme: ThemeData.light().textTheme.copyWith(
-                  title: TextStyle(
-                    fontFamily: 'OpenSans',
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-          )),
+      theme: theme.copyWith(
+        colorScheme: theme.colorScheme.copyWith(
+          primary: Colors.purple,
+          secondary: Colors.amber,
+        ),
+        textTheme: theme.textTheme.copyWith(
+          headline6: TextStyle(
+            fontFamily: 'OpenSans',
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
+        ),
+        appBarTheme: AppBarTheme(
+          titleTextStyle: TextStyle(
+            fontFamily: 'OpenSans',
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
     );
   }
 }
@@ -86,12 +87,8 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'Despesas Pessoais',
-          style: TextStyle(
-            fontFamily: 'OpenSans',
-          ),
-        ),
+        title: Text('Despesas Pessoais'),
+        backgroundColor: Theme.of(context).colorScheme.primary,
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.add),
@@ -106,7 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Container(
               width: double.infinity,
               child: Card(
-                color: Theme.of(context).primaryColor,
+                color: Theme.of(context).colorScheme.primary,
                 child: Text('Gráfico'),
                 elevation: 5,
               ),
