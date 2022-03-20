@@ -74,7 +74,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Transaction(
       id: 't4',
       title: 'Cartão de crédito',
-      value: 200.00,
+      value: 20000.00,
       date: DateTime.now(),
     ),
   ];
