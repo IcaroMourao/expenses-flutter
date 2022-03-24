@@ -99,6 +99,15 @@ class _MyHomePageState extends State<MyHomePage> {
       title: Text('Despesas Pessoais'),
       backgroundColor: Theme.of(context).colorScheme.primary,
       actions: <Widget>[
+        if (isLandscape)
+          IconButton(
+            icon: Icon(_showChart ? Icons.list : Icons.bar_chart),
+            onPressed: () {
+              setState(() {
+                _showChart = !_showChart;
+              });
+            },
+          ),
         IconButton(
           icon: Icon(Icons.add),
           onPressed: () => _openTransactionFormModal(context),
@@ -116,21 +125,6 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            if (isLandscape)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('Mostra gráfico'),
-                  Switch(
-                    value: _showChart,
-                    onChanged: (newValue) {
-                      setState(() {
-                        _showChart = newValue;
-                      });
-                    },
-                  )
-                ],
-              ),
             if (_showChart || !isLandscape)
               Container(
                 height: availableScreenHeight * (isLandscape ? 0.7 : 0.3),
