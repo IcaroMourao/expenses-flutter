@@ -103,11 +103,14 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     bool isLandscape = mediaQuery.orientation == Orientation.landscape;
+    final listIcon = Platform.isIOS ? CupertinoIcons.list_bullet : Icons.list;
+    final chartIcon =
+        Platform.isIOS ? CupertinoIcons.chart_bar : Icons.bar_chart;
 
     final actions = <Widget>[
       if (isLandscape)
         _getIconButton(
-          _showChart ? Icons.list : Icons.bar_chart,
+          _showChart ? listIcon : chartIcon,
           () {
             setState(() {
               _showChart = !_showChart;
@@ -131,21 +134,23 @@ class _MyHomePageState extends State<MyHomePage> {
     final availableScreenHeight =
         mediaQuery.size.height - appBarHeight - statusBarHeight;
 
-    final bodyPage = SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          if (_showChart || !isLandscape)
-            Container(
-              height: availableScreenHeight * (isLandscape ? 0.8 : 0.3),
-              child: Chart(_recentTransactions),
-            ),
-          if (!_showChart || !isLandscape)
-            Container(
-              height: availableScreenHeight * (isLandscape ? 1 : 0.3),
-              child: TransactionList(_transactions, _removeTransaction),
-            ),
-        ],
+    final bodyPage = SafeArea(
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            if (_showChart || !isLandscape)
+              Container(
+                height: availableScreenHeight * (isLandscape ? 0.8 : 0.3),
+                child: Chart(_recentTransactions),
+              ),
+            if (!_showChart || !isLandscape)
+              Container(
+                height: availableScreenHeight * (isLandscape ? 1 : 0.3),
+                child: TransactionList(_transactions, _removeTransaction),
+              ),
+          ],
+        ),
       ),
     );
 
